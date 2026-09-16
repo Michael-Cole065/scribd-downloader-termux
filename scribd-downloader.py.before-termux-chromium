@@ -25,7 +25,6 @@ from urllib.parse import unquote, urlparse
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
 
 
 DEFAULT_CDP_TIMEOUT_SECONDS = int(os.getenv("SCRIBD_CDP_TIMEOUT", "600"))
@@ -58,7 +57,7 @@ DEFAULT_PAPER_HEIGHT_INCHES = 10.5
 def build_chrome_options(runtime_profile_dir):
     """Create Chrome options for reliable headless PDF generation."""
     options = Options()
-    options.binary_location = "/data/data/com.termux/files/usr/lib/chromium/chrome"
+
     if HEADLESS_ENABLED:
         options.add_argument("--headless=new")
 
@@ -1276,9 +1275,6 @@ def main():
             )
 
             driver = webdriver.Chrome(
-                service=Service(
-                    "/data/data/com.termux/files/usr/bin/chromedriver"
-                ),
                 options=options
             )
 
